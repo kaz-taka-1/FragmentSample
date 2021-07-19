@@ -21,8 +21,8 @@ class MenuThanksFragment : Fragment() {
         val tvMenuPrice = view.findViewById<TextView>(R.id.tvMenuPrice)
         tvMenuName.text = menuName
         tvMenuPrice.text = menuPrice
-        val btBackButton = view.findViewById<Button>(R.id.tvMenuName)
-        btBackButton.setOnClickListener(ButtonClickListener)
+        val btBackButton = view.findViewById<Button>(R.id.btBackButton)
+        btBackButton.setOnClickListener(ButtonClickListener())
         return view
     }
     private inner class ButtonClickListener : View.OnClickListener{
@@ -30,5 +30,6 @@ class MenuThanksFragment : Fragment() {
             activity?.finish()
         }
     }
+
 
 }
