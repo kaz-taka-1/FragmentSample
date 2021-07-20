@@ -13,6 +13,14 @@ import android.widget.SimpleAdapter
 
 class MenuListFrtagment : Fragment() {
 
+    private var _isLayoutXLarge = true
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        val menuThanksFrame = activity?.findViewById<View>(R.id.menuThanksFrame)
+        if(menuThanksFrame == null){
+            _isLayoutXLarge = false
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -63,10 +71,22 @@ class MenuListFrtagment : Fragment() {
             val item = parent.getItemAtPosition(position) as MutableMap<String, String>
             val menuName = item["name"]
             val menuPrice = item["price"]
-            val intent2MenuThanks = Intent(activity,MenuThanksActivity::class.java)
-            intent2MenuThanks.putExtra("menuName",menuName)
-            intent2MenuThanks.putExtra("menuPrice",menuPrice)
-            startActivity(intent2MenuThanks)
+
+            val bundle =Bundle()
+            bundle.putString("menuName",menuName)
+            bundle.putString("menuPrice",menuPrice)
+            if(_isLayoutXLarge){
+                val transaction = fragmentManager?.beginTransaction()
+                val menuThanksFragment = MenuThanksFragment()
+                menuThanksFragment.arguments = bundle
+                transaction?.replace(R.id.menuThanksFrame,menuThanksFragment)
+                transaction?.commit()
+            }else{
+                val intent2MenuThanks = Intent(activity,MenuThanksActivity::class.java)
+                intent2MenuThanks.putExtras(bundle)
+                startActivity(intent2MenuThanks)
+            }
+
         }
     }
 }

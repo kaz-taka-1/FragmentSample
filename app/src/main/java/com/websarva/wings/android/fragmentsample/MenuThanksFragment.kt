@@ -10,11 +10,24 @@ import android.widget.TextView
 
 
 class MenuThanksFragment : Fragment() {
-
+    private var _isLayoutXLarge =true
+    override fun onCreate(savedInstanceState:Bundle?){
+        super.onCreate(savedInstanceState)
+        val menuListFragment = fragmentManager?.findFragmentById(R.id.fragmentMenuList)
+        if(menuListFragment == null){
+            _isLayoutXLarge = false
+        }
+    }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_menu_thanks,container,false)
         val intent =activity?.intent
-        val extras = intent?.extras
+        val extras:Bundle?
+        if (_isLayoutXLarge){
+            extras = arguments
+        }else{
+            val intent = activity?.intent
+            extras = intent?.extras
+        }
         val menuName = extras?.getString("menuName")
         val menuPrice = extras?.getString("menuPrice")
         val tvMenuName = view.findViewById<TextView>(R.id.tvMenuName)
@@ -27,7 +40,12 @@ class MenuThanksFragment : Fragment() {
     }
     private inner class ButtonClickListener : View.OnClickListener{
         override fun onClick(view:View){
-            activity?.finish()
+            if (_isLayoutXLarge){
+                val transaction = fragmentManager?.beginTransaction()
+                transaction?.commit()
+            }else {
+                activity?.finish()
+            }
         }
     }
 
