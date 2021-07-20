@@ -3,15 +3,15 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
-    android:baselineAligned="false">
+    android:baselineAligned="false"
+    android:orientation="horizontal">
 
-    <FrameLayout
+    <fragment
         android:id="@+id/fragmentMenuList"
-        android:name="com.websava.wings.android.fragmentsample.MenuListFragment"
+        android:name="com.websarva.wings.android.fragmentsample.MenuListFrtagment"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="04"/>
+        android:layout_weight="0.4"/>
     <FrameLayout
         android:id="@+id/menuThanksFrame"
         android:layout_width="0dp"
@@ -22,3 +22,6 @@
         android:background="?android:attr/detailsElementBackground"/>
 
 </LinearLayout>
+
+
+
